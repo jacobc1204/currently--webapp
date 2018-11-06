@@ -1,0 +1,45 @@
+@import url(https://fonts.googleapis.com/css?family=Karla:regular,italic,700,700italic);
+
+body, p {
+  margin: 0;
+  padding: 0;
+  font-family: 'Karla', sans-serif;
+  color: #3d3d3d;
+}
+
+button {
+  font-family: 'Karla', sans-serif;
+}
+
+button:active {
+  opacity: 0.4;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+p {
+  font-size: 24px;
+}
+
+a {
+  text-emphasis: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+::placeholder {
+  font-family: 'Karla', sans-serif;
+  opacity: 1;
+  color: #6664;
+  font-weight: 200;
+}
+
+.display {
+  display: grid;
+}
