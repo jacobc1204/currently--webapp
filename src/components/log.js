@@ -10,15 +10,16 @@ import Header from './header';
 
 const Container = styled.div`
   display: grid;
-  justify-items: stretch;
+  justify-self: center;
+  min-width: 90vw;
   margin: 30px 50px 0 50px;
-  grid-gap: 45px;
+  grid-gap: 3em;
 `;
 
 const Input = styled.input`
   font-family: 'Karla', sans-serif;
-  height: 60px;
-  font-size: 40px;
+  height: 2.1em;
+  font-size: 2em;
   text-align: center;
   background-color: #DDD;
   border: none;
@@ -74,6 +75,8 @@ class Log extends React.Component {
       if (user) {
         const icon = firebase.auth().currentUser.photoURL;
         this.setState({ icon });
+      } else {
+        this.props.history.push('/login');
       }
     })
   }

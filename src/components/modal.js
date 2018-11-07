@@ -27,6 +27,10 @@ const Container = styled.div`
   width: 80vw;
 `;
 
+const Text = styled.p`
+  color: #303036;
+`;
+
 class Modal extends React.Component {
 
   closeModal() {
@@ -38,7 +42,7 @@ class Modal extends React.Component {
     return (
       <Background className={ 'modal' } >
         <Container>
-          <p>You have read { this.props.count } out of { this.props.goal } books.</p>
+          <Text>You have read { this.props.count } out of { this.props.goal } books.</Text>
           <Button title="Close" onClick={ this.closeModal } />
         </Container>
       </Background>

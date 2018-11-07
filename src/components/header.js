@@ -17,46 +17,44 @@ const Container = styled.header`
 
 const Btn = styled.button`
   height: 100%;
-  width: 250px;
+  width: 30vw;
   background-color: transparent;
   border: none;
   justify-self: end;
   display: grid;
   grid-auto-flow: column;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
 `;
 
 const Image = styled.img`
   margin: 0;
   align-self: center;
-  width: 50px;
-  height: 50px;
+  width: 3em;
+  height: 3em;
   border-radius: 50%;
 `;
 
 const Text = styled.h1`
-  margin: 0 0 0 50px;
+  margin: 0 1em 0 2em;
   font-weight: 200;
+  font-size: ${ props => props.fontSize }em;
   color: #FFFAFF;
 `;
 
 class Header extends React.Component {
 
   onClick() {
-    firebase.auth().signOut()
-      .then(() => {
-        this.props.history.push('/');
-      });
+    firebase.auth().signOut();
   }
 
   render() {
     return (
       <Container>
-        <Link to="/"><Text>{ this.props.title }</Text></Link>
-        <Btn onClick={ this.onClick.bind(this) } >
+        <Link to="/"><Text fontSize={ 2.5 } >{ this.props.title }</Text></Link>
+        <Btn onClick={ () => this.onClick() } >
           <Image src={ this.props.icon } alt={ 'profile icon' }/>
-          <Text>Sign Out</Text>
+          <Text fontSize={ 1.5 } >Sign Out</Text>
         </Btn>
       </Container>
     )

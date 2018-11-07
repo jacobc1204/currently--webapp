@@ -12,6 +12,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 const Image = styled.img`
@@ -22,13 +23,13 @@ const Image = styled.img`
 `;
 
 const Text = styled.h3`
-  color: #FFFAFF;
+  color: #303036;
 `;
 
 const Input = styled.input`
   font-family: 'Karla', sans-serif;
-  height: 60px;
-  font-size: 40px;
+  height: 2.1em;
+  font-size: 2em;
   text-align: center;
   background-color: #DDD;
   border: none;
@@ -53,6 +54,16 @@ class Goal extends React.Component {
     this.state = {
       goal: '',
     }
+  }
+
+  componentWillMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        return;
+      } else {
+        this.props.history.push('/login');
+      }
+    })
   }
 
   render() {

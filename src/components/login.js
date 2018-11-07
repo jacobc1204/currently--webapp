@@ -26,12 +26,18 @@ const Image = styled.img`
   width: 100vw;
 `;
 
+const Text = styled.h1`
+  color: #303036;
+  z-index: 1;
+  text-align: center;
+`;
+
 class Login extends React.Component {
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.props.history.push('/home');
+        this.props.history.push('/');
       }
     })
   }
@@ -40,6 +46,7 @@ class Login extends React.Component {
     return (
       <Container>
         <Image src={ books } alt={"An open book."} />
+        <Text>Currently</Text>
         <StyledFirebaseAuth uiConfig={ config } firebaseAuth={ firebase.auth() } />
       </Container>
     )

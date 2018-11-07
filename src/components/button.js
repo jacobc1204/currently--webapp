@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Btn = styled.button`
   height: 55px;
-  width: 300px;
+  width: 20vw;
   background-color: #5CBCEC;
   border: none;
   border-radius: 10px;
@@ -12,8 +12,9 @@ const Btn = styled.button`
 `;
 
 const Text = styled.p`
+  color: #303036;
   margin: 0;
-  font-size: 28px;
+  font-size: 1.4em;
 `;
 
 class Button extends React.Component {

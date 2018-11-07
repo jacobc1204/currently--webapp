@@ -10,11 +10,16 @@ import Button from './button';
 import Recents from './recents';
 import Header from './header';
 import Modal from './modal';
-import Goal from './goal';
 
 const Container = styled.div`
   display: grid;
   justify-items: center;
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  flex-direction: row;
+  grid-gap: 50px;
 `;
 
 class Home extends React.Component {
@@ -56,8 +61,6 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      isSignedIn: false,
-      displayName: '',
       icon: '',
       progress: 0,
       goal: '',
@@ -68,12 +71,7 @@ class Home extends React.Component {
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.getBooks();
-        this.setState({ isSignedIn: true });
-      } else {
-        this.props.history.push('/');
-      }
+      user ? this.getBooks() : this.props.history.push('/login');
     })
   }
 
@@ -83,7 +81,10 @@ class Home extends React.Component {
         <Header title="Currently" icon={ this.state.icon } history={ this.props.history }/>
         <Modal count={ this.state.count } goal={ this.state.goal }/>
         <Progress progress={ Math.floor(this.state.progress * 100) } onClick={ this.showModal }/>
-        <Link to="/log"><Button title='Log' /></Link>
+        <Buttons>
+          <Link to="/log"><Button title='Log Book' /></Link>
+          <Link to="/goal"><Button title='Set Goal' /></Link>
+        </Buttons>
         <Recents books={ this.state.books } />
       </Container>
     )
