@@ -11,14 +11,14 @@ import Header from './header';
 const Container = styled.div`
   display: grid;
   justify-self: center;
-  min-width: 90vw;
-  margin: 30px 50px 0 50px;
-  grid-gap: 3em;
+  grid-gap: 2em;
 `;
 
 const Input = styled.input`
   font-family: 'Karla', sans-serif;
   height: 2.1em;
+  width: 90vw;
+  justify-self: center;
   font-size: 2em;
   text-align: center;
   background-color: #DDD;
@@ -27,6 +27,7 @@ const Input = styled.input`
 `;
 
 const BtnContainer = styled.div`
+  margin: 0 5vw 0 0;
   justify-self: end;
 `;
 
@@ -86,7 +87,7 @@ class Log extends React.Component {
     return (
       <div>
         <Container>
-          <Header title={ 'Currently' } icon={ this.state.icon } history={ this.props.history } />
+          <Header title={ 'Log' } icon={ this.state.icon } history={ this.props.history } />
           <Input name="book" type="text" placeholder="Inkheart" value={ this.state.book } onChange={ this.handleChange.bind(this) }></Input>
           <Input name="author" type="text" placeholder="Cornelia Funke" value={ this.state.author } onChange={ this.handleChange.bind(this) }></Input>
           <Input name="date" type="text" placeholder="August 1 2018" value={ this.state.date } onChange={ this.handleChange.bind(this) }></Input>

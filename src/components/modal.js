@@ -21,7 +21,7 @@ const Container = styled.div`
   top: 50%;
   left: 50%;
   box-shadow: 0 3px 4px 2px #dddb;
-  background-color: white;
+  background-color: #FFFAFF;
   border-radius: 10px;
   height: 70vh;
   width: 80vw;
@@ -29,6 +29,7 @@ const Container = styled.div`
 
 const Text = styled.p`
   color: #303036;
+  text-align: center;
 `;
 
 class Modal extends React.Component {

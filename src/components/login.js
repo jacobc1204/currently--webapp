@@ -21,6 +21,9 @@ const Text = styled.h1`
   color: #303036;
   z-index: 1;
   text-align: center;
+  position: absolute;
+  top: 1em;
+  left: 1em;
 `;
 
 class Login extends React.Component {

@@ -24,6 +24,8 @@ const Image = styled.img`
 
 const Text = styled.h3`
   color: #303036;
+  text-align: center;
+  background: #FFFAFF74;
 `;
 
 const Input = styled.input`

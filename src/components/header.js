@@ -17,18 +17,17 @@ const Container = styled.header`
 
 const Btn = styled.button`
   height: 100%;
-  width: 30vw;
+  width: 10em;
   background-color: transparent;
   border: none;
   justify-self: end;
-  display: grid;
-  grid-auto-flow: column;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: end;
 `;
 
 const Image = styled.img`
-  margin: 0;
   align-self: center;
   width: 3em;
   height: 3em;
@@ -36,7 +35,7 @@ const Image = styled.img`
 `;
 
 const Text = styled.h1`
-  margin: 0 1em 0 2em;
+  margin: 0 0.2em 0 0.4em;
   font-weight: 200;
   font-size: ${ props => props.fontSize }em;
   color: #FFFAFF;

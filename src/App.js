@@ -12,10 +12,11 @@ import Log from './components/log';
 import Goal from './components/goal';
 
 const Spinner = styled.div`
+  display: grid;
+  height: 100vh;
+  justify-content: center;
+  align-content: center;
   text-align: center;
-  position: absolute;
-  top: 25%;
-  left: 50%;
 `;
 
 class App extends Component {

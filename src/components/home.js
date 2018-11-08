@@ -19,7 +19,7 @@ const Container = styled.div`
 const Buttons = styled.div`
   display: flex;
   flex-direction: row;
-  grid-gap: 50px;
+  gap: 5em;
 `;
 
 class Home extends React.Component {

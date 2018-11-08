@@ -16,6 +16,7 @@ const Card = styled.div`
 const BookInfo = styled.div`
   grid-row: 1 / -1;
   grid-column: 1 / -1;
+  text-align: center;
   display: grid;
   justify-items: center;
   align-content: center;
@@ -25,7 +26,7 @@ const DelBtn = styled.div`
   background-color: #FB4747;
   justify-self: end;
   height: 100%;
-  width: 10%;
+  width: 5em;
   grid-row: 1 / -1;
   grid-column: -1;
   display: ${ props => props.display };
@@ -68,7 +69,8 @@ class BookCard extends React.Component {
     return (
       <Card onClick={ () => this.showBtn() } >
         <BookInfo>
-          <p>{ this.props.book.book } by { this.props.book.author }</p>
+          <p style={{ fontSize: 35 }} >{ this.props.book.book }</p>
+          <p style={{ fontSize: 20 }} >{ this.props.book.author }</p>
           <p>{ this.props.book.date }</p>
         </BookInfo>
         <DelBtn className={ 'delBtn' } display={ this.state.display } onClick={ () => this.deleteField(this.props.index) }>
