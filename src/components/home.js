@@ -62,14 +62,14 @@ class Home extends React.Component {
     super();
     this.state = {
       icon: '',
-      progress: 0,
+      progress: null,
       goal: '',
       count: 0,
       books: [],
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     firebase.auth().onAuthStateChanged((user) => {
       user ? this.getBooks() : this.props.history.push('/login');
     })
@@ -78,9 +78,9 @@ class Home extends React.Component {
   render() {
     return (
       <Container>
-        <Header title="Currently" icon={ this.state.icon } history={ this.props.history }/>
+        <Header title={ 'Currently' } icon={ this.state.icon } history={ this.props.history } />
         <Modal count={ this.state.count } goal={ this.state.goal }/>
-        <Progress progress={ Math.floor(this.state.progress * 100) } onClick={ this.showModal }/>
+        <Progress progress={ Math.floor(this.state.progress * 100) || 0 } onClick={ this.showModal }/>
         <Buttons>
           <Link to="/log"><Button title='Log Book' /></Link>
           <Link to="/goal"><Button title='Set Goal' /></Link>

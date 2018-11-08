@@ -5,15 +5,6 @@ import styled from 'styled-components';
 
 import books from '../assets/books.jpg';
 
-const config = {
-  signInFlow: 'popup',
-  signInSuccessUrl: '/home',
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-  ],
-}
-
 const Container = styled.div`
   display: grid;
   align-content: center;
@@ -34,7 +25,16 @@ const Text = styled.h1`
 
 class Login extends React.Component {
 
-  componentDidMount() {
+  config = {
+    signInFlow: 'popup',
+    signInSuccessUrl: '/',
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    ],
+  }
+
+  componentWillMount() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.props.history.push('/');
@@ -47,7 +47,7 @@ class Login extends React.Component {
       <Container>
         <Image src={ books } alt={"An open book."} />
         <Text>Currently</Text>
-        <StyledFirebaseAuth uiConfig={ config } firebaseAuth={ firebase.auth() } />
+        <StyledFirebaseAuth uiConfig={ this.config } firebaseAuth={ firebase.auth() } />
       </Container>
     )
   }

@@ -75,8 +75,6 @@ class Log extends React.Component {
       if (user) {
         const icon = firebase.auth().currentUser.photoURL;
         this.setState({ icon });
-      } else {
-        this.props.history.push('/login');
       }
     })
   }
@@ -87,8 +85,8 @@ class Log extends React.Component {
     }
     return (
       <div>
-        <Header title="Log" icon={ this.state.icon } />
         <Container>
+          <Header title={ 'Currently' } icon={ this.state.icon } history={ this.props.history } />
           <Input name="book" type="text" placeholder="Inkheart" value={ this.state.book } onChange={ this.handleChange.bind(this) }></Input>
           <Input name="author" type="text" placeholder="Cornelia Funke" value={ this.state.author } onChange={ this.handleChange.bind(this) }></Input>
           <Input name="date" type="text" placeholder="August 1 2018" value={ this.state.date } onChange={ this.handleChange.bind(this) }></Input>
