@@ -4,6 +4,7 @@ import firebase from '../firebase';
 import firestore from '../firestore';
 
 import { Redirect } from 'react-router-dom';
+import { ToastContainer, ToastStore } from 'react-toasts';
 
 import Button from './button';
 import Header from './header';
@@ -38,13 +39,23 @@ class Log extends React.Component {
   }
 
   getBooks() {
+    // is the form empty?
+    if (!this.state.book || !this.state.author || !this.state.date) {
+      this.setState({ submitError: true });
+      ToastStore.error('Please try again.');
+      return;
+    }
+    // if not log the book
+    this.setState({ submitError: false });
     const user = firebase.auth().currentUser.uid;
     const userRef = firestore.collection('users').doc(user);
     const books = [];
     userRef.get()
       .then(doc => {
-        if (doc.data().books) {
-          books.push(...doc.data().books);
+        if (doc.data()) {
+          if (doc.data().books) {
+            books.push(...doc.data().books);
+          }
         }
       })
       .then(() => {
@@ -59,7 +70,6 @@ class Log extends React.Component {
       .catch(error => console.log(error));
   }
 
-
   constructor() {
     super();
     this.state = {
@@ -68,6 +78,7 @@ class Log extends React.Component {
       book: '',
       author: '',
       date: '',
+      submitError: true,
     }
   }
 
@@ -88,9 +99,10 @@ class Log extends React.Component {
       <div>
         <Container>
           <Header title={ 'Log' } icon={ this.state.icon } history={ this.props.history } />
-          <Input name="book" type="text" placeholder="Inkheart" value={ this.state.book } onChange={ this.handleChange.bind(this) }></Input>
-          <Input name="author" type="text" placeholder="Cornelia Funke" value={ this.state.author } onChange={ this.handleChange.bind(this) }></Input>
-          <Input name="date" type="text" placeholder="August 1 2018" value={ this.state.date } onChange={ this.handleChange.bind(this) }></Input>
+          { this.state.submitError ? <ToastContainer store={ ToastStore } /> : null }
+          <Input name="book" type="text" placeholder="Title" value={ this.state.book } onChange={ this.handleChange.bind(this) }></Input>
+          <Input name="author" type="text" placeholder="Author" value={ this.state.author } onChange={ this.handleChange.bind(this) }></Input>
+          <Input name="date" type="text" placeholder="Date" value={ this.state.date } onChange={ this.handleChange.bind(this) }></Input>
           <BtnContainer>
             <Button title="Log" onClick={ this.getBooks.bind(this) } />
           </BtnContainer>

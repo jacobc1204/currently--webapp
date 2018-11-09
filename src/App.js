@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Switch } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import styled from 'styled-components';
 
@@ -10,6 +10,7 @@ import Home from './components/home';
 import Login from './components/login';
 import Log from './components/log';
 import Goal from './components/goal';
+import NotFound from './components/notFound';
 
 const Spinner = styled.div`
   display: grid;
@@ -33,6 +34,7 @@ class App extends Component {
     this.removeAuthListener = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({
+          icon: user.photoURL,
           authenticated: true,
           loading: false
         });
@@ -62,10 +64,13 @@ class App extends Component {
       <Router>
         <div>
           { this.state.authenticated === false ? <Redirect to="/login" /> : null }
-          <Route exact path="/" component={ Home } />
-          <Route path="/log" component={ Log } />
-          <Route path="/goal" component={ Goal }/>
-          <Route path="/login" component={ Login } />
+          <Switch>
+            <Route exact path="/" component={ Home } />
+            <Route path="/login" component={ Login } />
+            <Route path="/log" component={ Log } />
+            <Route path="/goal" component={ Goal }/>
+            <Route component={ NotFound } />
+          </Switch>
         </div>
       </Router>
     );

@@ -32,15 +32,29 @@ class Home extends React.Component {
     const books = [];
     let goal;
     userRef.onSnapshot((doc) => {
-      const recentBooks = doc.data().books.reverse().slice(0, 4);
-      const progress = (doc.data().books.length / goal);
-      this.setState({ books: recentBooks, progress, count: doc.data().books.length });
-    })
+      if (doc.data()) {
+        if (doc.data().goal) {
+          goal = parseInt(doc.data().goal, 10);
+          this.setState({ goal });
+        } else {
+          this.props.history.push('/goal');
+        }
+        if (doc.data().books) {
+          const recentBooks = doc.data().books.reverse().slice(0, 4);
+          const progress = (doc.data().books.length / goal);
+          this.setState({ books: recentBooks, progress, count: doc.data().books.length });
+        } else {
+          return;
+        }
+      }
+    });
     userRef.get()
       .then(doc => {
-        if (doc.data()) {
-          books.push(...doc.data().books);
+        if (doc.data().goal) {
           goal = parseInt(doc.data().goal, 10);
+        }
+        if (doc.data().books) {
+          books.push(...doc.data().books);
         }
       })
       .then(() => {
@@ -49,7 +63,7 @@ class Home extends React.Component {
         this.setState({ books: recentBooks, displayName, icon, count: books.length, progress, goal });
       })
       .catch(error => {
-        this.props.history.push('/goal');
+        console.log(error);
       });
   }
 
@@ -63,7 +77,7 @@ class Home extends React.Component {
     this.state = {
       icon: '',
       progress: null,
-      goal: '',
+      goal: null,
       count: 0,
       books: [],
     }

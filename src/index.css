@@ -29,8 +29,8 @@ p {
 
 a {
   text-emphasis: none;
-  text-decoration: none;
-  color: inherit;
+  text-decoration: underline;
+  color: #3d3d3d65;
 }
 
 ::placeholder {
