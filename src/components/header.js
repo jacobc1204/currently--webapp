@@ -17,14 +17,14 @@ const Container = styled.header`
 
 const Btn = styled.button`
   height: 100%;
-  width: 10em;
-  background-color: transparent;
+  width: 11em;
+  background-color: #5CBCEC;
   border: none;
   justify-self: end;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: end;
+  justify-content: center;
 `;
 
 const Image = styled.img`
@@ -34,11 +34,18 @@ const Image = styled.img`
   border-radius: 50%;
 `;
 
-const Text = styled.h1`
+const Title = styled.h1`
   margin: 0 0.2em 0 0.4em;
   font-weight: 200;
-  font-size: ${ props => props.fontSize }em;
+  font-size: 2.5em;
   color: #FFFAFF;
+`;
+
+const Text = styled.h2`
+  margin: 0 0.2em 0 0.4em;
+  font-weight: 200;
+  font-size: 1.2em;
+  color: #303036;
 `;
 
 class Header extends React.Component {
@@ -50,10 +57,10 @@ class Header extends React.Component {
   render() {
     return (
       <Container>
-        <Link to="/"><Text fontSize={ 2.5 } >{ this.props.title }</Text></Link>
+        <Link to="/"><Title>{ this.props.title }</Title></Link>
         <Btn onClick={ () => this.onClick() } >
-          <Image src={ this.props.icon } alt={ 'profile icon' }/>
-          <Text fontSize={ 1.5 } >Sign Out</Text>
+          { this.props.icon ? <Image src={ this.props.icon } alt={ 'profile icon' }/> : null }
+          <Text>Sign Out</Text>
         </Btn>
       </Container>
     )

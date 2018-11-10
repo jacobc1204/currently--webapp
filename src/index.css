@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Karla:regular,italic,700,700italic);
+ @import url(https://fonts.googleapis.com/css?family=Pacifico:regular);
 
 body, p {
   margin: 0;
@@ -16,6 +17,7 @@ button:active {
 }
 
 h1 {
+  font-family: 'Pacifico', sans-serif;
   margin: 0;
 }
 

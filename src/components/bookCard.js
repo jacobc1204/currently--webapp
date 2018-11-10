@@ -11,6 +11,7 @@ const Card = styled.div`
   justify-items: center;
   align-content: center;
   grid-template-rows: 1fr 1fr;
+  user-select: none;
 `;
 
 const BookInfo = styled.div`
