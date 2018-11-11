@@ -4,7 +4,9 @@ import firebase from '../firebase';
 import firestore from '../firestore';
 
 import Button from './button';
-import image from '../assets/books.jpg';
+import books from '../assets/books.jpg';
+
+const cloudinary = `https://res.cloudinary.com/dbb17m8ni/image/fetch/w_auto,c_fit,q_auto,dpr_auto,f_auto,fl_progressive/https://currently.netlify.com`;
 
 const Container = styled.div`
   height: 100vh;
@@ -71,7 +73,7 @@ class Goal extends React.Component {
   render() {
     return (
       <Container className={ 'goal' }>
-        <Image src={ image } alt={"An open book"} />
+        <Image src={ `${cloudinary}${books}` } alt={"An open book"} />
         <Text>How many books would you like to read this year?</Text>
         <Input name="goal" type="text" placeholder="30" value={ this.state.goal } onChange={ this.handleChange.bind(this) }></Input>
         <Button title="Set Goal" onClick={ this.onClick.bind(this) } />

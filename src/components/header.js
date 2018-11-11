@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import firebase from './../firebase';
 
+const cloudinary = `https://res.cloudinary.com/dbb17m8ni/image/fetch/w_auto,c_fit,q_60,dpr_auto,f_auto,fl_progressive/`;
+
 const Container = styled.header`
   position: sticky;
   top: 0;
@@ -59,7 +61,7 @@ class Header extends React.Component {
       <Container>
         <Link to="/"><Title>{ this.props.title }</Title></Link>
         <Btn onClick={ () => this.onClick() } >
-          { this.props.icon ? <Image src={ this.props.icon } alt={ 'profile icon' }/> : null }
+          { this.props.icon ? <Image src={ `${cloudinary}${this.props.icon}` } alt={ 'profile icon' }/> : null }
           <Text>Sign Out</Text>
         </Btn>
       </Container>
