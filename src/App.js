@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import './App.css';
 import firebase from './firebase';
+import firestore from './firestore';
 import Home from './components/home';
 import Login from './components/login';
 import Log from './components/log';
@@ -33,8 +34,18 @@ class App extends Component {
   componentWillMount() {
     this.removeAuthListener = firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        const userRef = firestore.collection('users').doc(user.uid);
+        userRef.get()
+          .then(doc => {
+            if (doc.data()) {
+              if (!doc.data().goal) {
+                this.setState({ data: false });
+              }
+            } else {
+              this.setState({ data: false });
+            }
+          });
         this.setState({
-          icon: user.photoURL,
           authenticated: true,
           loading: false
         });
@@ -64,6 +75,7 @@ class App extends Component {
       <Router>
         <div>
           { this.state.authenticated === false ? <Redirect to="/login" /> : null }
+          { this.state.data === false ? <Redirect to={ '/goal' } /> : null }
           <Switch>
             <Route exact path="/" component={ Home } />
             <Route path="/login" component={ Login } />

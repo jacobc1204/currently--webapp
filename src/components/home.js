@@ -24,47 +24,29 @@ const Buttons = styled.div`
 
 class Home extends React.Component {
 
-  getBooks() {
-    const user = firebase.auth().currentUser.uid;
-    const displayName = firebase.auth().currentUser.displayName;
-    const icon = firebase.auth().currentUser.photoURL;
-    const userRef = firestore.collection('users').doc(user);
-    const books = [];
-    let goal;
+  getBooks(user) {
+    const userId = user.uid;
+    const userRef = firestore.collection('users').doc(userId);
     userRef.onSnapshot((doc) => {
       if (doc.data()) {
-        if (doc.data().goal) {
-          goal = parseInt(doc.data().goal, 10);
-          this.setState({ goal });
-        } else {
-          this.props.history.push('/goal');
-        }
-        if (doc.data().books) {
+        if (doc.data().books && doc.data().goal) {
+          const goal = parseInt(doc.data().goal, 10);
           const recentBooks = doc.data().books.reverse().slice(0, 4);
           const progress = (doc.data().books.length / goal);
-          this.setState({ books: recentBooks, progress, count: doc.data().books.length });
+          this.setState({
+            books: recentBooks,
+            icon: user.photoURL,
+            goal,
+            progress,
+            count: doc.data().books.length
+          });
         } else {
           return;
         }
+      } else {
+        this.props.history.push('/goal');
       }
     });
-    userRef.get()
-      .then(doc => {
-        if (doc.data().goal) {
-          goal = parseInt(doc.data().goal, 10);
-        }
-        if (doc.data().books) {
-          books.push(...doc.data().books);
-        }
-      })
-      .then(() => {
-        const recentBooks = books.reverse().slice(0, 4);
-        const progress = (books.length / goal);
-        this.setState({ books: recentBooks, displayName, icon, count: books.length, progress, goal });
-      })
-      .catch(error => {
-        console.log(error);
-      });
   }
 
   showModal() {
@@ -75,7 +57,7 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      icon: '',
+      icon: null,
       progress: null,
       goal: null,
       count: 0,
@@ -85,7 +67,7 @@ class Home extends React.Component {
 
   componentWillMount() {
     firebase.auth().onAuthStateChanged((user) => {
-      user ? this.getBooks() : this.props.history.push('/login');
+      user ? this.getBooks(user) : this.props.history.push('/login');
     })
   }
 

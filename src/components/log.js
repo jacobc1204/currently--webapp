@@ -38,17 +38,16 @@ class Log extends React.Component {
     this.setState({ [e.target.name] : e.target.value });
   }
 
-  getBooks() {
-    // is the form empty?
+  getBooks(user) {
+    // if the form is empty; don't log
     if (!this.state.book || !this.state.author || !this.state.date) {
       this.setState({ submitError: true });
       ToastStore.error('Please try again.');
       return;
     }
-    // if not log the book
-    this.setState({ submitError: false });
-    const user = firebase.auth().currentUser.uid;
-    const userRef = firestore.collection('users').doc(user);
+    // if it isn't empty; log the book
+    const userId = user.uid;
+    const userRef = firestore.collection('users').doc(userId);
     const books = [];
     userRef.get()
       .then(doc => {
@@ -65,7 +64,10 @@ class Log extends React.Component {
           date: this.state.date
         });
         userRef.set({ books }, { merge: true });
-        this.setState({ isLogged: true });
+        this.setState({
+          isLogged: true,
+          submitError: false
+         });
       })
       .catch(error => console.log(error));
   }
@@ -73,20 +75,24 @@ class Log extends React.Component {
   constructor() {
     super();
     this.state = {
+      user: null,
       isLogged: false,
-      icon: '',
+      icon: null,
       book: '',
       author: '',
       date: '',
       submitError: true,
     }
+    this.getBooks.bind(this);
   }
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        const icon = firebase.auth().currentUser.photoURL;
-        this.setState({ icon });
+        this.setState({
+          icon: user.photoURL,
+          user,
+        });
       }
     })
   }
@@ -104,7 +110,7 @@ class Log extends React.Component {
           <Input name="author" type="text" placeholder="Author" value={ this.state.author } onChange={ this.handleChange.bind(this) }></Input>
           <Input name="date" type="text" placeholder="Date" value={ this.state.date } onChange={ this.handleChange.bind(this) }></Input>
           <BtnContainer>
-            <Button title="Log" onClick={ this.getBooks.bind(this) } />
+            <Button title="Log" onClick={ () => {this.getBooks(this.state.user)} } />
           </BtnContainer>
         </Container>
       </div>
