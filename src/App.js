@@ -11,6 +11,7 @@ import Home from './components/home';
 import Login from './components/login';
 import Log from './components/log';
 import Goal from './components/goal';
+import viewAll from './components/viewAll'
 import NotFound from './components/notFound';
 
 const Spinner = styled.div`
@@ -81,6 +82,7 @@ class App extends Component {
             <Route path="/login" component={ Login } />
             <Route path="/log" component={ Log } />
             <Route path="/goal" component={ Goal }/>
+            <Route path="/view_all" component={ viewAll } />
             <Route component={ NotFound } />
           </Switch>
         </div>

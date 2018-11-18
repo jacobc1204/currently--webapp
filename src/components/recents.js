@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
 import BookCard from './bookCard';
 
 const Container = styled.div`
@@ -22,6 +24,7 @@ class Recents extends React.Component {
             )
           })
         }
+        <Link to={ "/view_all" } >View All</Link>
       </Container>
     )
   }

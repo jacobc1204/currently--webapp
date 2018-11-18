@@ -59,7 +59,7 @@ class Header extends React.Component {
   render() {
     return (
       <Container>
-        <Link to="/"><Title>{ this.props.title }</Title></Link>
+        <Link to="/"><Title>{ this.props.title || 'Currently' }</Title></Link>
         <Btn onClick={ () => this.onClick() } >
           { this.props.icon ? <Image src={ `${cloudinary}${this.props.icon}` } alt={ 'profile icon' }/> : null }
           <Text>Sign Out</Text>
