@@ -15,6 +15,12 @@ const Container = styled.div`
   grid-gap: 2em;
 `;
 
+const Form = styled.form`
+  justify-self: center;
+  display: grid;
+  grid-gap: 2em;
+`;
+
 const Input = styled.input`
   font-family: 'Karla', sans-serif;
   height: 2.1em;
@@ -38,7 +44,8 @@ class Log extends React.Component {
     this.setState({ [e.target.name] : e.target.value });
   }
 
-  getBooks(user) {
+  getBooks(user, event) {
+    event.preventDefault();
     // if the form is empty; don't log
     if (!this.state.book || !this.state.author || !this.state.date) {
       this.setState({ submitError: true });
@@ -106,12 +113,14 @@ class Log extends React.Component {
         <Container>
           <Header title={ 'Log' } icon={ this.state.icon } history={ this.props.history } />
           { this.state.submitError ? <ToastContainer store={ ToastStore } /> : null }
-          <Input name="book" type="text" placeholder="Title" value={ this.state.book } onChange={ this.handleChange.bind(this) }></Input>
-          <Input name="author" type="text" placeholder="Author" value={ this.state.author } onChange={ this.handleChange.bind(this) }></Input>
-          <Input name="date" type="text" placeholder="Date" value={ this.state.date } onChange={ this.handleChange.bind(this) }></Input>
-          <BtnContainer>
-            <Button title="Log" onClick={ () => {this.getBooks(this.state.user)} } />
-          </BtnContainer>
+          <Form onSubmit={ (event) => { this.getBooks(this.state.user, event) } }>
+            <Input name="book" type="text" placeholder="Title" value={ this.state.book } onChange={ this.handleChange.bind(this) }></Input>
+            <Input name="author" type="text" placeholder="Author" value={ this.state.author } onChange={ this.handleChange.bind(this) }></Input>
+            <Input name="date" type="text" placeholder="Date" value={ this.state.date } onChange={ this.handleChange.bind(this) }></Input>
+            <BtnContainer>
+              <Button title="Log" />
+            </BtnContainer>
+          </Form>
         </Container>
       </div>
     )
