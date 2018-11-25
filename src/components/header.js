@@ -10,7 +10,7 @@ const Container = styled.header`
   top: 0;
   margin: 0;
   height: 75px;
-  width: 100vw;
+  width: 100%;
   background: #303036;
   display: grid;
   align-items: center;

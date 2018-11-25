@@ -8,6 +8,7 @@ import { ToastContainer, ToastStore } from 'react-toasts';
 
 import Button from './button';
 import Header from './header';
+import { getDefaultSettings } from 'http2';
 
 const Container = styled.div`
   display: grid;
@@ -105,6 +106,7 @@ class Log extends React.Component {
   }
 
   render() {
+    console.log(this.date)
     if (this.state.isLogged) {
       return <Redirect to="/" />;
     }
@@ -116,7 +118,7 @@ class Log extends React.Component {
           <Form onSubmit={ (event) => { this.getBooks(this.state.user, event) } }>
             <Input name="book" type="text" placeholder="Title" value={ this.state.book } onChange={ this.handleChange.bind(this) }></Input>
             <Input name="author" type="text" placeholder="Author" value={ this.state.author } onChange={ this.handleChange.bind(this) }></Input>
-            <Input name="date" type="text" placeholder="Date" value={ this.state.date } onChange={ this.handleChange.bind(this) }></Input>
+            <Input name="date" type="date" placeholder="Date" value={ this.state.date } onChange={ this.handleChange.bind(this) }></Input>
             <BtnContainer>
               <Button title="Log" />
             </BtnContainer>

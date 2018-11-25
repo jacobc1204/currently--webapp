@@ -75,7 +75,7 @@ class Goal extends React.Component {
       <Container className={ 'goal' }>
         <Image src={ `${cloudinary}${books}` } alt={"An open book"} />
         <Text>How many books would you like to read this year?</Text>
-        <Input name="goal" type="text" placeholder="30" value={ this.state.goal } onChange={ this.handleChange.bind(this) }></Input>
+        <Input name="goal" type="number" min="0" placeholder="30" value={ this.state.goal } onChange={ this.handleChange.bind(this) }></Input>
         <Button title="Set Goal" onClick={ this.onClick.bind(this) } />
       </Container>
     )
