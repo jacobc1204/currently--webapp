@@ -8,7 +8,6 @@ import { ToastContainer, ToastStore } from 'react-toasts';
 
 import Button from './button';
 import Header from './header';
-import { getDefaultSettings } from 'http2';
 
 const Container = styled.div`
   display: grid;
