@@ -35,6 +35,7 @@ const Form = styled.form`
   justify-self: center;
   display: grid;
   grid-gap: 2em;
+  justify-items: center;
 `;
 
 const Input = styled.input`
