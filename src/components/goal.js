@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ToastContainer, ToastStore } from 'react-toasts';
 import firebase from '../firebase';
 import firestore from '../firestore';
 
@@ -30,6 +31,12 @@ const Text = styled.h3`
   background: #FFFAFF74;
 `;
 
+const Form = styled.form`
+  justify-self: center;
+  display: grid;
+  grid-gap: 2em;
+`;
+
 const Input = styled.input`
   font-family: 'Karla', sans-serif;
   height: 2.1em;
@@ -46,9 +53,15 @@ class Goal extends React.Component {
     this.setState({ [e.target.name] : e.target.value });
   }
 
-  onClick() {
-    const user = firebase.auth().currentUser.uid;
-    const userRef = firestore.collection('users').doc(user);
+  onClick(user, event) {
+    event.preventDefault();
+    if (!this.state.goal) {
+      this.setState({ submitError: true });
+      ToastStore.error('Please try again.');
+      return;
+    }
+    const userID = user.uid;
+    const userRef = firestore.collection('users').doc(userID);
     userRef.set({ goal: this.state.goal }, { merge: true });
     this.props.history.push('/');
   }
@@ -56,13 +69,16 @@ class Goal extends React.Component {
   constructor() {
     super();
     this.state = {
-      goal: '',
+      user: null,
+      goal: null,
+      submitError: true
     }
   }
 
   componentWillMount() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        this.setState({ user });
         return;
       } else {
         this.props.history.push('/login');
@@ -75,8 +91,11 @@ class Goal extends React.Component {
       <Container className={ 'goal' }>
         <Image src={ `${cloudinary}${books}` } alt={"An open book"} />
         <Text>How many books would you like to read this year?</Text>
-        <Input name="goal" type="number" min="0" placeholder="30" value={ this.state.goal } onChange={ this.handleChange.bind(this) }></Input>
-        <Button title="Set Goal" onClick={ this.onClick.bind(this) } />
+        { this.state.submitError ? <ToastContainer store={ ToastStore } /> : null }
+        <Form onSubmit={ (event) => { this.onClick(this.state.user, event) } } >
+          <Input name="goal" type="number" min="0" placeholder="30" value={ this.state.goal } onChange={ this.handleChange.bind(this) }></Input>
+          <Button title="Set Goal" />
+        </Form>
       </Container>
     )
   }
