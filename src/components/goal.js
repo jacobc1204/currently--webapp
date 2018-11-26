@@ -7,8 +7,6 @@ import firestore from '../firestore';
 import Button from './button';
 import books from '../assets/books.jpg';
 
-const cloudinary = `https://res.cloudinary.com/dbb17m8ni/image/fetch/w_auto,c_fit,q_auto,dpr_auto,f_auto,fl_progressive/https://currently.netlify.com`;
-
 const Container = styled.div`
   height: 100vh;
   width: 100vw;
@@ -90,7 +88,7 @@ class Goal extends React.Component {
   render() {
     return (
       <Container className={ 'goal' }>
-        <Image src={ `${cloudinary}${books}` } alt={"An open book"} />
+        <Image src={ books } alt={"An open book"} />
         <Text>How many books would you like to read this year?</Text>
         { this.state.submitError ? <ToastContainer store={ ToastStore } /> : null }
         <Form onSubmit={ (event) => { this.onClick(this.state.user, event) } } >

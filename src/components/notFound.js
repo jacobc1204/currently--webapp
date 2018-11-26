@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom'
 
 import books from '../assets/books.jpg';
 
-const cloudinary = `https://res.cloudinary.com/dbb17m8ni/image/fetch/w_auto,c_fit,q_auto,dpr_auto,f_auto,fl_progressive/https://currently.netlify.com`;
-
 const Container = styled.div`
   height: 100vh;
   display: grid;
@@ -33,7 +31,7 @@ export default class NotFound extends Component {
   render() {
     return (
       <Container>
-        <Image src={ `${cloudinary}${books}` } alt={"An open book."} />
+        <Image src={ books } alt={"An open book."} />
         <Text>Currently</Text>
         <h1>Page Not Found</h1>
         <Link to={ '/' } style={{ fontSize: 20 }} >Go Home</Link>
