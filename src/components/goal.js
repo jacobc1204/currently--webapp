@@ -92,7 +92,7 @@ class Goal extends React.Component {
         <Text>How many books would you like to read this year?</Text>
         { this.state.submitError ? <ToastContainer store={ ToastStore } /> : null }
         <Form onSubmit={ (event) => { this.onClick(this.state.user, event) } } >
-          <Input name="goal" type="number" min="0" placeholder="30" value={ this.state.goal } onChange={ this.handleChange.bind(this) }></Input>
+          <Input name="goal" type="number" min="1" placeholder="30" value={ this.state.goal } onChange={ this.handleChange.bind(this) }></Input>
           <Button title="Set Goal" />
         </Form>
       </Container>
