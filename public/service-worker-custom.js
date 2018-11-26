@@ -1,5 +1,5 @@
 const cacheName = "Currently-v1";
-const filesToCache = ["index.html", "media/*.jpg"];
+const filesToCache = ["static/index.html", "static/media/books.06c276ac.jpg"];
 
 self.addEventListener("install", function(event) {
   // Perform install steps
