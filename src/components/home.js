@@ -27,7 +27,7 @@ class Home extends React.Component {
   getBooks(user) {
     const userId = user.uid;
     const userRef = firestore.collection('users').doc(userId);
-    userRef.onSnapshot((doc) => {
+    userRef.onSnapshot({ includeMetadataChanges: true }, (doc) => {
       if (doc.data()) {
         if (doc.data().books && doc.data().goal) {
           const goal = parseInt(doc.data().goal, 10);
