@@ -18,7 +18,7 @@ const Container = styled.div`
 const Form = styled.form`
   justify-self: center;
   display: grid;
-  grid-gap: 2em;
+  grid-gap: 1.1em;
 `;
 
 const Input = styled.input`
@@ -115,9 +115,12 @@ class Log extends React.Component {
           <Header title={ 'Log' } icon={ this.state.icon } history={ this.props.history } />
           { this.state.submitError ? <ToastContainer store={ ToastStore } /> : null }
           <Form onSubmit={ (event) => { this.getBooks(this.state.user, event) } }>
-            <Input name="book" type="text" placeholder="Title" value={ this.state.book } onChange={ this.handleChange.bind(this) }></Input>
-            <Input name="author" type="text" placeholder="Author" value={ this.state.author } onChange={ this.handleChange.bind(this) }></Input>
-            <Input name="date" type="date" placeholder="Date" value={ this.state.date } onChange={ this.handleChange.bind(this) }></Input>
+            <label for="book">Title</label>
+            <Input name="book" type="text" value={ this.state.book } onChange={ this.handleChange.bind(this) }></Input>
+            <label for="author">Author</label>
+            <Input name="author" type="text" value={ this.state.author } onChange={ this.handleChange.bind(this) }></Input>
+            <label for="date">Date</label>
+            <Input name="date" type="date" value={ this.state.date } onChange={ this.handleChange.bind(this) }></Input>
             <BtnContainer>
               <Button title="Log" />
             </BtnContainer>
