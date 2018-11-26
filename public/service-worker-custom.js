@@ -1,5 +1,5 @@
 const cacheName = "Currently-v1.1";
-const filesToCache = ["/", "/manifest.json", "/index.html", "/static/index.html", "/static/media/books.06c276ac.jpg", "/static/js/main.5253fb3a.js", "/static/css/main.041cfb7a.css", "/service-worker-custom.js", "/static/js/firebase.js", "/static/js/firestore.js"];
+const filesToCache = ["/", "/manifest.json", "/index.html", "/static/media/books.06c276ac.jpg", "/static/js/main.5253fb3a.js", "/static/css/main.041cfb7a.css", "/service-worker-custom.js", "/offline.html"];
 
 self.addEventListener("install", function(event) {
   // Perform install steps
@@ -29,10 +29,18 @@ self.addEventListener("activate", function(event) {
 self.addEventListener("fetch", (event) => {
   // event.respondWith(fetchAndReplace(event.request));
   console.log("[ServiceWorker] Fetch");
-  event.respondWith(
-    caches.match(event.request).then(function(response) {
-      return response || fetch(event.request);
-    })
-  );
-
+  if (event.request.mode === 'navigate' || (event.request.method === 'GET' && event.request.headers.get('accept').includes('text/html'))) {
+    event.respondWith(
+      fetch(event.request.url).catch(error => {
+        // Return the offline page
+        return caches.match('/offline.html');
+      })
+    );
+  } else {
+    event.respondWith(
+      caches.match(event.request).then(function(response) {
+        return response || fetch(event.request);
+      })
+    );
+  }
 });
