@@ -1,6 +1,7 @@
 {
   "short_name": "Currently",
   "name": "Currently",
+  "description": "A minimalistic reading challenge app. Set a goal, and track your progress.",
   "icons": [
     {
       "src": "android-chrome-192x192.png",
