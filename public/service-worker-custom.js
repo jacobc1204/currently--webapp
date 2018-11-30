@@ -1,6 +1,10 @@
 const cacheName = "Currently-v1.1";
 const filesToCache = ["/", "/manifest.json", "/index.html", "/static/media/books.06c276ac.jpg", "/static/js/main.5253fb3a.js", "/static/css/main.041cfb7a.css", "/service-worker-custom.js", "/offline.html"];
 
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.6.1/workbox-sw.js');
+
+workbox.googleAnalytics.initialize();
+
 self.addEventListener("install", function(event) {
   // Perform install steps
   console.log("[ServiceWorker] Install");
